@@ -1,0 +1,11 @@
+// Color
+$color-material-font: #f3f3f3;
+
+// Font
+$default-font-size: 1.6rem;
+
+// Background
+$auth-background-gradient: linear-gradient(
+    to right bottom,
+    rgba($color-material-font, .97),
+    rgba($color-material-font, .97));
