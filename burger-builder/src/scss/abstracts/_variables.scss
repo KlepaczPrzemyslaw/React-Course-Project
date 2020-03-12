@@ -1,5 +1,9 @@
 // Color
-$color-material-font: #f3f3f3;
+$color-font-light: #f3f3f3;
+$color-font-dark: #a3a3a3;
+
+$color-burger-panel-bg: #CF8F2E;
+$color-burger-panel-button: #AA6817;
 
 // Font
 $default-font-size: 1.6rem;
@@ -7,5 +11,5 @@ $default-font-size: 1.6rem;
 // Background
 $auth-background-gradient: linear-gradient(
     to right bottom,
-    rgba($color-material-font, .97),
-    rgba($color-material-font, .97));
+    rgba($color-font-light, .97),
+    rgba($color-font-dark, .97));
