@@ -1,16 +1,22 @@
+@import "../abstracts/mixins";
+
 .modal {
+  width: 50rem;
+  padding: 16px;
+  left: calc(50% - 25rem);
+  top: 30%;
   position: fixed;
   z-index: 500;
   background-color: white;
-  width: 70%;
   border: 1px solid #ccc;
   box-shadow: 1px 1px 1px black;
-  padding: 16px;
-  left: 15%;
-  top: 30%;
-  box-sizing: border-box;
   transition: transform .5s ease-out, opacity .5s linear;
   border-radius: .5rem;
+
+  @include respond(phone) {
+    width: 70%;
+    left: 15%;
+  }
 
   &__content {
     padding: 1rem;
@@ -26,11 +32,4 @@
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, .5);
-}
-
-@media (min-width: 60rem) {
-  .modal {
-    width: 50rem;
-    left: calc(50% - 25rem);
-  }
 }

@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 
 const controls = [
     {label: "Salad", type: "salad"},
-    {label: "Meat", type: "meat"},
+    {label: "Bacon", type: "bacon"},
     {label: "Cheese", type: "cheese"},
-    {label: "Bacon", type: "bacon"}
+    {label: "Meat", type: "meat"}
 ];
 
 const buildControls = (props) => (

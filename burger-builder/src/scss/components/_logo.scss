@@ -1,0 +1,13 @@
+@import "../abstracts/variables";
+
+.logo {
+  background-color: $bg-color-burger;
+  padding: .8rem;
+  height: 4.5rem;
+  border-radius: 1rem;
+
+  & img {
+    height: 100%;
+    width: 5rem;
+  }
+}
