@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from "prop-types";
 
 const buildControl = (props) => {
-    console.log(props.disabled);
     return (
         <div className="build-control">
             <div className="build-control__label">{props.label}</div>
