@@ -1,6 +1,8 @@
 @import "../abstracts/mixins";
+@import "../abstracts/variables";
 
 .side-drawer {
+  background-color: $bg-color-burger;
   display: none;
 
   @include respond(phone) {
@@ -12,7 +14,6 @@
     left: 0;
     top: 0;
     z-index: 200;
-    background-color: white;
     padding: 3.2rem 1.6rem;
     transition: transform .3s ease-out;
   }
