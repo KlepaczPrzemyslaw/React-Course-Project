@@ -6,7 +6,8 @@ import Backdrop from '../Backdrop/Backdrop';
 class Modal extends Component {
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return (nextProps.show !== this.props.show);
+        return (nextProps.show !== this.props.show) ||
+            (nextProps.loading !== this.props.loading);
     }
 
     render() {
@@ -28,7 +29,8 @@ class Modal extends Component {
 
 Modal.propTypes = {
     show: PropTypes.bool.isRequired,
-    clickBackdrop: PropTypes.func.isRequired
+    clickBackdrop: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired
 };
 
 export default Modal;
