@@ -1,5 +1,6 @@
 import React from 'react';
 import BurgerIngredient from './BurgerIngedient/BurgerIngedient';
+import PropTypes from "prop-types";
 
 const burger = (props) => {
 
@@ -14,14 +15,20 @@ const burger = (props) => {
     }
 
     return (
-        <div className="burger">
-            <div className="burger__image">
-                <BurgerIngredient type="bread-top"/>
-                {burgerIngredients}
-                <BurgerIngredient type="bread-bottom"/>
+        <div className="u-margin-top-toolbar">
+            <div className="burger">
+                <div className="burger__image">
+                    <BurgerIngredient type="bread-top"/>
+                    {burgerIngredients}
+                    <BurgerIngredient type="bread-bottom"/>
+                </div>
             </div>
         </div>
     );
+};
+
+burger.propTypes = {
+    ingredients: PropTypes.object.isRequired
 };
 
 export default burger;
