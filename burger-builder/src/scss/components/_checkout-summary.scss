@@ -1,0 +1,14 @@
+@import "../abstracts/mixins";
+@import "../abstracts/variables";
+
+.checkout-summary {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  background-color: $bg-color-burger;
+
+  @include respond(phone) {
+    width: 80%;
+  }
+}
