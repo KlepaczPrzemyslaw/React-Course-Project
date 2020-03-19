@@ -19,8 +19,13 @@
     padding-right: 0;
   }
 
-  &:hover {
+  &:hover:not(:disabled) {
     transform: scale(1.1);
+  }
+
+  &:disabled {
+    color: #cccccc;
+    cursor: not-allowed;
   }
 
   &--success {

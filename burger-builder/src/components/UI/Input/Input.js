@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 
 const input = (props) => {
     let inputElement = null;
-    const {inputType, label, inputProps, value} = props;
+    const {inputType, label, inputProps, value, valid, touched} = props;
 
     switch (inputType) {
         case 'input':
             inputElement =
                 <input
-                    className="form__input"
+                    className={"form__input" + (!valid && touched ? " form__input--invalid" : "")}
                     {...inputProps}
                     value={value}
                     onChange={props.onChange}/>;
@@ -17,7 +17,7 @@ const input = (props) => {
         case 'textarea':
             inputElement =
                 <textarea
-                    className="form__input"
+                    className={"form__input" + (!valid && touched ? " form__input--invalid" : "")}
                     {...inputProps}
                     value={value}
                     onChange={props.onChange}>
@@ -26,7 +26,7 @@ const input = (props) => {
         case 'select':
             let {options, ...rest} = inputProps;
             inputElement = (<select
-                className="form__input"
+                className={"form__input" + (!valid && touched ? " form__input--invalid" : "")}
                 {...rest}
                 onChange={props.onChange}
                 value={value}>
@@ -55,7 +55,9 @@ input.propTypes = {
     label: PropTypes.string.isRequired,
     inputProps: PropTypes.object.isRequired,
     value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    valid: PropTypes.bool.isRequired,
+    touched: PropTypes.bool.isRequired
 };
 
 export default input;

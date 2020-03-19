@@ -17,6 +17,11 @@
       background-color: #e8f0fe;
       border-bottom: 1px solid #7f3608;
     }
+
+    &--invalid {
+      border: 1px solid red;
+      color: red;
+    }
   }
 
   &__label {
