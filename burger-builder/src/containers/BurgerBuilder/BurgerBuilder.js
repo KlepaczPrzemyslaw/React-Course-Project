@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import * as actionTypes from '../../store/actions';
+import * as actionTypes from '../../store/actions/index';
 
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -12,9 +12,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 class BurgerBuilder extends Component {
     state = {
-        purchasing: false,
-        loading: false,
-        error: false
+        purchasing: false
     };
 
     updatePurchaseState = (ingredients) => {
@@ -24,11 +22,7 @@ class BurgerBuilder extends Component {
     };
 
     componentDidMount() {
-        /*axios.get('https://burgerbuilder-reactapp.firebaseio.com/ingredients.json')
-            .then(response => {
-                this.setState({ingredients: response?.data});
-            })
-            .catch(error => this.setState({error: true}))*/
+        this.props.onInitIngredients();
     }
 
     purchaseHandler = () => {
@@ -40,6 +34,7 @@ class BurgerBuilder extends Component {
     };
 
     purchaseContinueHandler = () => {
+        this.props.onInitPurchase();
         this.props.history.push('/checkout');
     };
 
@@ -53,9 +48,9 @@ class BurgerBuilder extends Component {
 
         let elementInsideModal = null;
         let burger =
-            this.state.error ?
-                (<div className="u-margin-top-big"><Spinner/></div>) :
-                (<div className="u-margin-top-big u-text-center"><h1>Application error!</h1></div>);
+            this.props.error ?
+                (<div className="u-margin-top-big u-text-center"><h1>Application error!</h1></div>) :
+                (<div className="u-margin-top-big"><Spinner/></div>);
         if (this.props.ings) {
             burger = (
                 <Fragment>
@@ -78,16 +73,12 @@ class BurgerBuilder extends Component {
                     price={this.props.currPrice}/>
             );
         }
-        if (this.state.loading) {
-            elementInsideModal = <Spinner/>;
-        }
 
         return (
             <Fragment>
                 <Modal
                     show={this.state.purchasing}
-                    clickBackdrop={this.purchaseCancelHandler}
-                    loading={this.state.loading}>
+                    clickBackdrop={this.purchaseCancelHandler}>
                     {elementInsideModal}
                 </Modal>
                 {burger}
@@ -98,15 +89,18 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-        ings: state.ingredients,
-        currPrice: state.totalPrice
+        ings: state.burgerBuilder.ingredients,
+        currPrice: state.burgerBuilder.totalPrice,
+        error: state.burgerBuilder.error
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientAdded: (ingName) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: ingName}),
-        onIngredientRemoved: (ingName) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName})
+        onIngredientAdded: (ingName) => dispatch(actionTypes.addIngredient(ingName)),
+        onIngredientRemoved: (ingName) => dispatch(actionTypes.removeIngredient(ingName)),
+        onInitIngredients: () => dispatch(actionTypes.initIngredients()),
+        onInitPurchase: () => dispatch(actionTypes.purchaseInit())
     }
 };
 
