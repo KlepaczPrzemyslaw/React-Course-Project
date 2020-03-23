@@ -26,7 +26,12 @@ class BurgerBuilder extends Component {
     }
 
     purchaseHandler = () => {
-        this.setState({purchasing: true});
+        if (this.props.isAuthenticated) {
+            this.setState({purchasing: true});
+        } else {
+            this.props.onKeepBuiltBurger();
+            this.props.history.push('/auth');
+        }
     };
 
     purchaseCancelHandler = () => {
@@ -53,7 +58,7 @@ class BurgerBuilder extends Component {
                 (<div className="u-margin-top-big"><Spinner/></div>);
         if (this.props.ings) {
             burger = (
-                <Fragment>
+                <div className="burger-builder">
                     <Burger ingredients={this.props.ings}/>
                     <BuildControls
                         ingredientAdded={this.props.onIngredientAdded}
@@ -62,8 +67,9 @@ class BurgerBuilder extends Component {
                         price={this.props.currPrice}
                         purchasable={this.updatePurchaseState(this.props.ings)}
                         purchasing={this.purchaseHandler}
+                        isAuthenticated={this.props.isAuthenticated}
                     />
-                </Fragment>
+                </div>
             );
             elementInsideModal = (
                 <OrderSummary
@@ -91,7 +97,8 @@ const mapStateToProps = state => {
     return {
         ings: state.burgerBuilder.ingredients,
         currPrice: state.burgerBuilder.totalPrice,
-        error: state.burgerBuilder.error
+        error: state.burgerBuilder.error,
+        isAuthenticated: !!state.auth.token
     }
 };
 
@@ -100,7 +107,8 @@ const mapDispatchToProps = dispatch => {
         onIngredientAdded: (ingName) => dispatch(actionTypes.addIngredient(ingName)),
         onIngredientRemoved: (ingName) => dispatch(actionTypes.removeIngredient(ingName)),
         onInitIngredients: () => dispatch(actionTypes.initIngredients()),
-        onInitPurchase: () => dispatch(actionTypes.purchaseInit())
+        onInitPurchase: () => dispatch(actionTypes.purchaseInit()),
+        onKeepBuiltBurger: () => dispatch(actionTypes.keepBuiltBurger())
     }
 };
 

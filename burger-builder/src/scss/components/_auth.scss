@@ -1,0 +1,26 @@
+@import "../abstracts/mixins";
+@import "../base/animations";
+
+.auth {
+  display: flex;
+  justify-content: center;
+
+  &__form {
+    margin-top: 2rem;
+    width: 50rem;
+    text-align: center;
+  }
+
+  &__error {
+    color: red;
+    animation: pulse 2s infinite;
+  }
+
+  &__login-header {
+    color: #0000AA;
+  }
+
+  &__sign-up-header {
+    color: #944317;
+  }
+}

@@ -16,7 +16,7 @@ const sideDrawer = (props) => {
                     <Logo/>
                 </div>
                 <nav>
-                    <NavigationItems/>
+                    <NavigationItems isAuthenticated={props.isAuthenticated}/>
                 </nav>
             </div>
         </Fragment>
@@ -25,7 +25,8 @@ const sideDrawer = (props) => {
 
 sideDrawer.propTypes = {
     closeSideDrawer: PropTypes.func.isRequired,
-    isMenuOpen: PropTypes.bool.isRequired
+    isMenuOpen: PropTypes.bool.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired
 };
 
 export default sideDrawer;

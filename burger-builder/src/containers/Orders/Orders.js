@@ -9,23 +9,25 @@ import {connect} from 'react-redux';
 
 class Orders extends Component {
     componentDidMount() {
-        this.props.onFetchOrders();
+        this.props.onFetchOrders(this.props.token, this.props.userId);
     }
 
     render() {
         let orders = (<div className="u-margin-top-big"><Spinner/></div>);
-        if (!this.props.loading) {
-            orders = (<div className="u-margin-top-medium">
-                {
-                    this.props.orders.map(order => (
-                        <Order
-                            key={order.id}
-                            ingredients={order.ingredients}
-                            price={order.price}
-                        />
-                    ))
-                }
-            </div>);
+        if (!this.props.loading && !this.props.error) {
+            orders = (
+                <div>
+                    {
+                        this.props.orders?.map(order => (
+                            <Order
+                                key={order.id}
+                                ingredients={order.ingredients}
+                                price={order.price}
+                            />
+                        ))
+                    }
+                </div>
+            );
         }
 
         return (
@@ -39,13 +41,16 @@ class Orders extends Component {
 const mapStateToProps = state => {
     return {
         orders: state.order.orders,
-        loading: state.order.loading
+        loading: state.order.loading,
+        error: state.order.error,
+        token: state.auth.token,
+        userId: state.auth.userId
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchOrders: () => dispatch(actionTyps.fetchOrders())
+        onFetchOrders: (token, userId) => dispatch(actionTyps.fetchOrders(token, userId))
     };
 };
 
