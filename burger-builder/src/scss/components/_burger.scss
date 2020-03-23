@@ -6,6 +6,10 @@
   background-color: $bg-color-burger;
 
   &__image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     max-width: 40rem;
     height: 25rem;
     width: 100%;
@@ -18,4 +22,11 @@
     font-weight: bold;
     font-size: 1.9rem;
   }
+}
+
+.burger-builder {
+  min-height: calc(100vh - 5.6rem);
+  display: flex;
+  flex-direction: column;
+  background-color: $color-burger-panel-bg;
 }

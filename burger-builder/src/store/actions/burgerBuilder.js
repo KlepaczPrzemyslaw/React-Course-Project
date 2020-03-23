@@ -29,6 +29,12 @@ export const fetchIngredientsError = (error) => {
     }
 };
 
+export const keepBuiltBurger = () => {
+    return {
+        type: actionTypes.KEEP_BUILT_BURGER
+    };
+};
+
 export const initIngredients = () => {
     return dispatch => {
         axios.get('https://burgerbuilder-reactapp.firebaseio.com/ingredients.json')

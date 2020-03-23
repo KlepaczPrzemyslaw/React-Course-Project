@@ -35,7 +35,8 @@ class ContactData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    isEmail: true
                 },
                 valid: false,
                 touched: false
@@ -118,6 +119,14 @@ class ContactData extends Component {
         if (rules.maxLength && value.trim().length > rules.maxLength) {
             return false;
         }
+        let pattern = /^\d+$/;
+        if (rules.isNumeric && !pattern.test(value)) {
+            return false;
+        }
+        pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+        if (rules.isEmail && !pattern.test(value)) {
+            return false;
+        }
 
         // Input is valid
         return true;
@@ -137,18 +146,19 @@ class ContactData extends Component {
         const order = {
             ingredients: this.props.ings,
             price: this.props.totalPrice,
-            delivery: orderData
+            delivery: orderData,
+            userId: this.props.userId
         };
-        this.props.onOrderBurger(order);
+        this.props.onOrderBurger(order, this.props.token);
     };
 
     inputChangedHandler = (event, inputId) => {
         const currentForm = {...this.state.orderForm};
         const currentInput = {...currentForm[inputId]};
         currentInput.value = event.target.value;
-        currentForm[inputId] = currentInput;
         currentInput.valid = this.checkValidity(currentInput.value, currentInput.validation);
         currentInput.touched = true;
+        currentForm[inputId] = currentInput;
 
         let formIsValid = true;
         Object.values(currentForm).forEach(({valid}) => {
@@ -181,6 +191,7 @@ class ContactData extends Component {
                 <button
                     className="btn btn--success"
                     onClick={this.orderHandler}
+                    type="button"
                     disabled={!this.state.isOrderFormValid}>
                     Order
                 </button>
@@ -202,13 +213,15 @@ const mapStateToProps = state => {
     return {
         ings: state.burgerBuilder.ingredients,
         totalPrice: state.burgerBuilder.totalPrice,
-        loading: state.order.loading
+        loading: state.order.loading,
+        token: state.auth.token,
+        userId: state.auth.userId
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onOrderBurger: (orderData) => dispatch(contactActions.purchaseBurger(orderData))
+        onOrderBurger: (orderData, token) => dispatch(contactActions.purchaseBurger(orderData, token))
     };
 };
 

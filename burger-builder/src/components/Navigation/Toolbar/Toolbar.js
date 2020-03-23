@@ -19,13 +19,15 @@ const toolbar = (props) => (
             <Logo/>
         </div>
         <nav className="header__nav">
-            <NavigationItems/>
+            <NavigationItems
+                isAuthenticated={props.isAuthenticated}/>
         </nav>
     </header>
 );
 
 toolbar.propTypes = {
-    showSideDrawer: PropTypes.func.isRequired
+    showSideDrawer: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired
 };
 
 export default toolbar;

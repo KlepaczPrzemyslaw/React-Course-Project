@@ -15,13 +15,11 @@ const burger = (props) => {
     }
 
     return (
-        <div className="u-margin-top-toolbar">
-            <div className="burger">
-                <div className="burger__image">
-                    <BurgerIngredient type="bread-top"/>
-                    {burgerIngredients}
-                    <BurgerIngredient type="bread-bottom"/>
-                </div>
+        <div className="burger">
+            <div className="burger__image">
+                <BurgerIngredient type="bread-top"/>
+                {burgerIngredients}
+                <BurgerIngredient type="bread-bottom"/>
             </div>
         </div>
     );
