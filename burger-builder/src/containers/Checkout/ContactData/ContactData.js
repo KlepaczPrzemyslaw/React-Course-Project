@@ -6,6 +6,7 @@ import axios from '../../../axios-orders';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import * as contactActions from '../../../store/actions/index';
+import {checkValidity} from "../../../shared/validation";
 
 class ContactData extends Component {
     state = {
@@ -109,29 +110,6 @@ class ContactData extends Component {
         isOrderFormValid: false
     };
 
-    checkValidity = (value, rules) => {
-        if (rules.required && value.trim() === '') {
-            return false;
-        }
-        if (rules.minLength && value.trim().length < rules.minLength) {
-            return false;
-        }
-        if (rules.maxLength && value.trim().length > rules.maxLength) {
-            return false;
-        }
-        let pattern = /^\d+$/;
-        if (rules.isNumeric && !pattern.test(value)) {
-            return false;
-        }
-        pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-        if (rules.isEmail && !pattern.test(value)) {
-            return false;
-        }
-
-        // Input is valid
-        return true;
-    };
-
     orderHandler = (event) => {
         event.preventDefault();
         if (!this.state.isOrderFormValid) {
@@ -156,7 +134,7 @@ class ContactData extends Component {
         const currentForm = {...this.state.orderForm};
         const currentInput = {...currentForm[inputId]};
         currentInput.value = event.target.value;
-        currentInput.valid = this.checkValidity(currentInput.value, currentInput.validation);
+        currentInput.valid = checkValidity(currentInput.value, currentInput.validation);
         currentInput.touched = true;
         currentForm[inputId] = currentInput;
 

@@ -5,6 +5,7 @@ import {Redirect} from 'react-router-dom';
 import Input from '../../components/UI/Input/Input';
 import * as actionTypes from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import {checkValidity} from "../../shared/validation";
 
 class Auth extends Component {
     state = {
@@ -46,34 +47,11 @@ class Auth extends Component {
         isSignUp: true
     };
 
-    checkValidity = (value, rules) => {
-        if (rules.required && value.trim() === '') {
-            return false;
-        }
-        if (rules.minLength && value.trim().length < rules.minLength) {
-            return false;
-        }
-        if (rules.maxLength && value.trim().length > rules.maxLength) {
-            return false;
-        }
-        let pattern = /^\d+$/;
-        if (rules.isNumeric && !pattern.test(value)) {
-            return false;
-        }
-        pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-        if (rules.isEmail && !pattern.test(value)) {
-            return false;
-        }
-
-        // Input is valid
-        return true;
-    };
-
     inputChangedHandler = (event, inputId) => {
         const currentForm = {...this.state.controls};
         const currentInput = {...currentForm[inputId]};
         currentInput.value = event.target.value;
-        currentInput.valid = this.checkValidity(currentInput.value, currentInput.validation);
+        currentInput.valid = checkValidity(currentInput.value, currentInput.validation);
         currentInput.touched = true;
         currentForm[inputId] = currentInput;
 
