@@ -1,0 +1,106 @@
+@import "../abstracts/variables";
+@import "../base/animations";
+
+.build-controls {
+  width: 100%;
+  background-color: $color-burger-panel-bg;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  padding: 1rem 0;
+
+  &__price {
+    color: black;
+    margin: 1rem 0;
+  }
+
+  &__order-button {
+    background-color: #DAD735;
+    outline: none;
+    cursor: pointer;
+    border: 1px solid #966909;
+    color: #966909;
+    font-family: inherit;
+    font-size: 1.2em;
+    padding: 15px 30px;
+    box-shadow: 2px 2px 2px #966909;
+    margin: 1.5rem 0;
+
+    &:hover, &:active {
+      background-color: #A0DB41;
+      border: 1px solid #966909;
+      color: #966909;
+    }
+
+    &:disabled {
+      background-color: #C7C6C6;
+      cursor: not-allowed;
+      border: 1px solid #ccc;
+      color: #888888;
+    }
+
+    &:not(:disabled) {
+      animation: enable-order-button 0.3s linear;
+    }
+  }
+}
+
+// Single instance
+
+.build-control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: .5rem 0;
+
+  & button {
+    display: block;
+    font: inherit;
+    padding: .5rem;
+    margin: 0 .5rem;
+    width: 8rem;
+    border: 1px solid $color-burger-panel-button;
+    cursor: pointer;
+    outline: none;
+
+    &:disabled {
+      background-color: #AC9980;
+      border: 1px solid #7E7365;
+      color: #ccc;
+      cursor: default;
+    }
+
+    &:hover:disabled {
+      background-color: #AC9980;
+      color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+
+  &__less {
+    background-color: #D39952;
+    color: white;
+
+    &:hover, .BuildControl .Less:active {
+      background-color: #DAA972;
+      color: white;
+    }
+  }
+
+  &__more {
+    background-color: #8F5E1E;
+    color: white;
+
+    &:hover,.BuildControl .More:active {
+      background-color: #99703F;
+      color: white;
+    }
+  }
+
+  &__label {
+    padding: 10px;
+    font-weight: bold;
+    width: 80px;
+    color: black;
+  }
+}

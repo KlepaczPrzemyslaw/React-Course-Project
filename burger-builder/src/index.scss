@@ -1,0 +1,22 @@
+@import "./scss/abstracts/variables";
+@import "./scss/abstracts/mixins";
+
+@import "./scss/base/base";
+@import "./scss/base/utilities";
+@import "./scss/base/animations";
+
+@import "./scss/components/layout";
+@import "./scss/components/burger";
+@import "./scss/components/ingredient";
+@import "./scss/components/build-controls";
+@import "./scss/components/modal";
+@import "./scss/components/button";
+@import "./scss/components/toolbar";
+@import "./scss/components/logo";
+@import "./scss/components/side-drawer";
+@import "./scss/components/spinner";
+@import "./scss/components/checkout-summary";
+@import "./scss/components/contact-data";
+@import "./scss/components/order";
+@import "./scss/components/form";
+@import "./scss/components/auth";

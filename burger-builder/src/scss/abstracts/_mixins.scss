@@ -1,0 +1,43 @@
+/*
+- phone
+- t-port
+- t-land
+- desktop
+*/
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    // 600px ->
+    @media only screen and (max-width: 37.5em) { @content };
+  }
+  @if $breakpoint == t-port {
+    // 900px ->
+    @media only screen and (max-width: 56.25em) { @content };
+  }
+  @if $breakpoint == t-land {
+    // 1200px ->
+    @media only screen and (max-width: 75em) { @content };
+  }
+  @if $breakpoint == desktop {
+    // 1800px ->
+    @media only screen and (min-width: 112.5em) { @content };
+  }
+}
+
+// Icon scale
+@mixin scale() {
+  transform: scale(3) translate(-1.1rem, .24em);
+
+  @include respond(t-land) {
+    transform: scale(2.5) translate(-1.2rem, .24em);
+  }
+  @include respond(t-port) {
+    transform: scale(2) translate(-1.3rem, .24em);
+  }
+  @include respond(phone) {
+    transform: scale(1.5) translate(-1.4rem, .24em);
+  }
+  @include respond(desktop) {
+    transform: scale(3.1) translate(-1rem, .24em);
+  }
+}

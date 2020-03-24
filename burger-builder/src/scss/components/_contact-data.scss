@@ -1,0 +1,11 @@
+@import "../abstracts/mixins";
+
+.contact-data {
+  margin: 2rem auto;
+  width: 50rem;
+  text-align: center;
+
+  @include respond(phone) {
+    width: 80%;
+  }
+}

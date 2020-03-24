@@ -1,0 +1,12 @@
+.layout {
+  min-height: 100vh;
+
+  &__fill-toolbar {
+    padding-bottom: 5.6rem;
+  }
+
+  &__main {
+    width: 100%;
+    min-height: calc(100vh - 5.6rem);
+  }
+}
