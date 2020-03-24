@@ -28,9 +28,9 @@ class App extends Component {
                     <Route path="/" exact component={BurgerBuilder}/>
                     <Route
                         path="/checkout"
-                        render={() => (
+                        render={props => (
                             <Suspense fallback={<div>Loading...</div>}>
-                                <Checkout/>
+                                <Checkout {...props}/>
                             </Suspense>
                         )}/>
                     <Route
