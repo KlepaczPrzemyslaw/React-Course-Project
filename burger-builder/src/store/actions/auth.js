@@ -82,19 +82,16 @@ export const authSubmit = (email, password, isSignUp) => {
 };
 
 export const authInitState = () => {
-    console.log("authInitState");
     return dispatch => {
         const token = localStorage.getItem(tokenKey);
         const expDate = localStorage.getItem(expKey);
         const userId = localStorage.getItem(userIdKey);
 
         if (token && userId && expDate && (new Date(expDate) > new Date())) {
-            console.log("login");
             dispatch(authSuccess(token, userId));
             const differenceInMilliseconds = new Date(localStorage.getItem(expKey)) - new Date().getTime();
             dispatch(checkAuthTimeout(differenceInMilliseconds / 1000));
         } else {
-            console.log("logout");
             dispatch(logout());
         }
     };
