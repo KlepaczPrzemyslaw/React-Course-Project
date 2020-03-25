@@ -60,7 +60,7 @@ export const authSubmit = (email, password, isSignUp) => {
             password: password,
             returnSecureToken: true
         };
-        axios.post(`${isSignUp ? signUpBaseUrl : signInBaseUrl}AIzaSyDBk9WMVL7iSFvMb-vcdk21S6m_DvlZ5Ew`, authData)
+        axios.post(`${isSignUp ? signUpBaseUrl : signInBaseUrl}key`, authData)
             .then(response => {
                 const {idToken, localId, expiresIn} = response.data;
                 // token
