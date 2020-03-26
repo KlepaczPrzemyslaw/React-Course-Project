@@ -9,7 +9,7 @@ const controls = [
     {label: "Meat", type: "meat"}
 ];
 
-const buildControls = (props) => (
+const BuildControls = (props) => (
     <div className="build-controls">
         <p className="build-controls__price">
             Current Price:
@@ -37,7 +37,7 @@ const buildControls = (props) => (
     </div>
 );
 
-buildControls.propTypes = {
+BuildControls.propTypes = {
     ingredientAdded: PropTypes.func.isRequired,
     ingredientDeleted: PropTypes.func.isRequired,
     disabledButtons: PropTypes.object.isRequired,
@@ -47,4 +47,4 @@ buildControls.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired
 };
 
-export default buildControls;
+export default BuildControls;

@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import {NavLink} from 'react-router-dom';
 import PropTypes from "prop-types";
 
-const navigationItems = (props) => {
+const NavigationItems = (props) => {
     let navItems = null;
     if (props.isAuthenticated) {
         navItems = (
@@ -35,8 +35,8 @@ const navigationItems = (props) => {
     );
 };
 
-navigationItems.propTypes = {
+NavigationItems.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired
 };
 
-export default navigationItems;
+export default NavigationItems;
