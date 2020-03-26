@@ -5,7 +5,7 @@ import NavigationItems from '../NavigationItems/NavigationItems';
 import Backdrop from '../../UI/Backdrop/Backdrop';
 import PropTypes from "prop-types";
 
-const sideDrawer = (props) => {
+const SideDrawer = (props) => {
     const additionalClass = props.isMenuOpen ? 'side-drawer__open' : 'side-drawer__closed';
 
     return (
@@ -23,10 +23,10 @@ const sideDrawer = (props) => {
     );
 };
 
-sideDrawer.propTypes = {
+SideDrawer.propTypes = {
     closeSideDrawer: PropTypes.func.isRequired,
     isMenuOpen: PropTypes.bool.isRequired,
     isAuthenticated: PropTypes.bool.isRequired
 };
 
-export default sideDrawer;
+export default SideDrawer;

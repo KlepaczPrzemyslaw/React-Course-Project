@@ -4,7 +4,7 @@ import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import PropTypes from "prop-types";
 
-const toolbar = (props) => (
+const Toolbar = (props) => (
     <header className="header">
         <div className="header__menu">
             <div
@@ -25,9 +25,9 @@ const toolbar = (props) => (
     </header>
 );
 
-toolbar.propTypes = {
+Toolbar.propTypes = {
     showSideDrawer: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired
 };
 
-export default toolbar;
+export default Toolbar;

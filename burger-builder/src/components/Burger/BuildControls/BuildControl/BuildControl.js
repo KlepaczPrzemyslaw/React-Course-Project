@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-const buildControl = (props) => {
+const BuildControl = (props) => {
     return (
         <div className="build-control">
             <div className="build-control__label">{props.label}</div>
@@ -20,11 +20,11 @@ const buildControl = (props) => {
     );
 };
 
-buildControl.propTypes = {
+BuildControl.propTypes = {
     label: PropTypes.string.isRequired,
     added: PropTypes.func.isRequired,
     deleted: PropTypes.func.isRequired,
     disabled: PropTypes.bool.isRequired,
 };
 
-export default buildControl;
+export default BuildControl;

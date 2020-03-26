@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-const orderSummary = (props) => {
+const OrderSummary = (props) => {
     const ingredientSummary = Object.keys(props.ingredients)
         .map(igKey => (
             <li key={igKey}>
@@ -35,11 +35,11 @@ const orderSummary = (props) => {
     );
 };
 
-orderSummary.propTypes = {
+OrderSummary.propTypes = {
     ingredients: PropTypes.object.isRequired,
     price: PropTypes.number.isRequired,
     cancelAction: PropTypes.func.isRequired,
     continueAction: PropTypes.func.isRequired,
 };
 
-export default orderSummary;
+export default OrderSummary;
