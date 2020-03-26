@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {useEffect, Fragment} from 'react';
 
 import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
@@ -7,36 +7,34 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actionTyps from '../../store/actions/index';
 import {connect} from 'react-redux';
 
-class Orders extends Component {
-    componentDidMount() {
-        this.props.onFetchOrders(this.props.token, this.props.userId);
-    }
+const Orders = props => {
+    useEffect(() => {
+        props.onFetchOrders(props.token, props.userId);
+    }, []);
 
-    render() {
-        let orders = (<div className="u-margin-top-big"><Spinner/></div>);
-        if (!this.props.loading && !this.props.error) {
-            orders = (
-                <div>
-                    {
-                        this.props.orders?.map(order => (
-                            <Order
-                                key={order.id}
-                                ingredients={order.ingredients}
-                                price={order.price}
-                            />
-                        ))
-                    }
-                </div>
-            );
-        }
-
-        return (
-            <Fragment>
-                {orders}
-            </Fragment>
+    let orders = (<div className="u-margin-top-big"><Spinner/></div>);
+    if (!props.loading && !props.error) {
+        orders = (
+            <div>
+                {
+                    props.orders?.map(order => (
+                        <Order
+                            key={order.id}
+                            ingredients={order.ingredients}
+                            price={order.price}
+                        />
+                    ))
+                }
+            </div>
         );
     }
-}
+
+    return (
+        <Fragment>
+            {orders}
+        </Fragment>
+    );
+};
 
 const mapStateToProps = state => {
     return {
