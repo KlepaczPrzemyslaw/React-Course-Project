@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import {connect} from 'react-redux';
 import * as actionTypes from '../../store/actions/index';
 
@@ -10,88 +10,86 @@ import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
-class BurgerBuilder extends Component {
-    state = {
-        purchasing: false
-    };
+const BurgerBuilder = props => {
+    const [purchasing, setPurchasing] = useState(false);
 
-    updatePurchaseState = (ingredients) => {
+    useEffect(() => {
+        props.onInitIngredients();
+    }, []);
+
+    const updatePurchaseState = (ingredients) => {
         const ingredientsSum = Object.values(ingredients)
             .reduce((acc, current) => acc + current, 0);
         return ingredientsSum > 0;
     };
 
-    componentDidMount() {
-        this.props.onInitIngredients();
+    const purchaseHandler = () => {
+        if (props.isAuthenticated) {
+            setPurchasing(true);
+        } else {
+            props.onKeepBuiltBurger();
+            props.history.push('/auth');
+        }
+    };
+
+    const purchaseCancelHandler = () => {
+        setPurchasing(false);
+    };
+
+    const purchaseContinueHandler = () => {
+        props.onInitPurchase();
+        props.history.push('/checkout');
+    };
+
+    // Render
+
+    const disabledInfo = {
+        ...props.ings
+    };
+    for (let key in disabledInfo) {
+        disabledInfo[key] = disabledInfo[key] <= 0
     }
 
-    purchaseHandler = () => {
-        if (this.props.isAuthenticated) {
-            this.setState({purchasing: true});
-        } else {
-            this.props.onKeepBuiltBurger();
-            this.props.history.push('/auth');
-        }
-    };
-
-    purchaseCancelHandler = () => {
-        this.setState({purchasing: false});
-    };
-
-    purchaseContinueHandler = () => {
-        this.props.onInitPurchase();
-        this.props.history.push('/checkout');
-    };
-
-    render() {
-        const disabledInfo = {
-            ...this.props.ings
-        };
-        for (let key in disabledInfo) {
-            disabledInfo[key] = disabledInfo[key] <= 0
-        }
-
-        let elementInsideModal = null;
-        let burger =
-            this.props.error ?
-                (<div className="u-margin-top-big u-text-center"><h1>Application error!</h1></div>) :
-                (<div className="u-margin-top-big"><Spinner/></div>);
-        if (this.props.ings) {
-            burger = (
-                <div className="burger-builder">
-                    <Burger ingredients={this.props.ings}/>
-                    <BuildControls
-                        ingredientAdded={this.props.onIngredientAdded}
-                        ingredientDeleted={this.props.onIngredientRemoved}
-                        disabledButtons={disabledInfo}
-                        price={this.props.currPrice}
-                        purchasable={this.updatePurchaseState(this.props.ings)}
-                        purchasing={this.purchaseHandler}
-                        isAuthenticated={this.props.isAuthenticated}
-                    />
-                </div>
-            );
-            elementInsideModal = (
-                <OrderSummary
-                    ingredients={this.props.ings}
-                    cancelAction={this.purchaseCancelHandler}
-                    continueAction={this.purchaseContinueHandler}
-                    price={this.props.currPrice}/>
-            );
-        }
-
-        return (
-            <Fragment>
-                <Modal
-                    show={this.state.purchasing}
-                    clickBackdrop={this.purchaseCancelHandler}>
-                    {elementInsideModal}
-                </Modal>
-                {burger}
-            </Fragment>
+    let elementInsideModal = null;
+    let burger =
+        props.error ?
+            (<div className="u-margin-top-big u-text-center"><h1>Application error!</h1></div>) :
+            (<div className="u-margin-top-big"><Spinner/></div>);
+    if (props.ings) {
+        burger = (
+            <div className="burger-builder">
+                <Burger ingredients={props.ings}/>
+                <BuildControls
+                    ingredientAdded={props.onIngredientAdded}
+                    ingredientDeleted={props.onIngredientRemoved}
+                    disabledButtons={disabledInfo}
+                    price={props.currPrice}
+                    purchasable={updatePurchaseState(props.ings)}
+                    purchasing={purchaseHandler}
+                    isAuthenticated={props.isAuthenticated}
+                />
+            </div>
+        );
+        elementInsideModal = (
+            <OrderSummary
+                ingredients={props.ings}
+                cancelAction={purchaseCancelHandler}
+                continueAction={purchaseContinueHandler}
+                price={props.currPrice}/>
         );
     }
-}
+
+    return (
+        <Fragment>
+            <Modal
+                show={purchasing}
+                clickBackdrop={purchaseCancelHandler}>
+                {elementInsideModal}
+            </Modal>
+            {burger}
+        </Fragment>
+    );
+};
 
 const mapStateToProps = state => {
     return {
