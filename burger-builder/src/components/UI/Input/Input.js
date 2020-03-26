@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-const input = (props) => {
+const Input = (props) => {
     let inputElement = null;
     const {inputType, label, inputProps, value, valid, touched} = props;
 
@@ -50,7 +50,7 @@ const input = (props) => {
     );
 };
 
-input.propTypes = {
+Input.propTypes = {
     inputType: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     inputProps: PropTypes.object.isRequired,
@@ -60,4 +60,4 @@ input.propTypes = {
     touched: PropTypes.bool.isRequired
 };
 
-export default input;
+export default Input;

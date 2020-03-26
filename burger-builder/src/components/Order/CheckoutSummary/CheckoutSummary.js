@@ -3,7 +3,7 @@ import React from 'react';
 import Burger from '../../Burger/Burger';
 import PropTypes from "prop-types";
 
-const checkoutSummary = (props) => {
+const CheckoutSummary = (props) => {
     return (
         <div className="checkout-summary">
             <div>
@@ -28,10 +28,10 @@ const checkoutSummary = (props) => {
     );
 };
 
-checkoutSummary.propTypes = {
+CheckoutSummary.propTypes = {
     ingredients: PropTypes.object.isRequired,
     cancelAction: PropTypes.func.isRequired,
     continueAction: PropTypes.func.isRequired,
 };
 
-export default checkoutSummary;
+export default CheckoutSummary;
